@@ -2,6 +2,7 @@ package com.yuhj.springbootmybatis.controller;
 
 import com.yuhj.springbootmybatis.entity.user;
 import com.yuhj.springbootmybatis.service.UserLoginService;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Api(value = "用户模块")
 @Controller
 @RequestMapping("/user")
 public class UserLoginController {
@@ -43,6 +45,9 @@ public class UserLoginController {
      * @return 登录成功页面
      */
     @RequestMapping(value = {"/userLogin"})
+    @ApiOperation(value = "用户注册",notes = "输入用户名和密码")
+    @ApiImplicitParams({@ApiImplicitParam(name = "username",value = "用户名")})
+    @ApiResponses({@ApiResponse(code=400,message="用户密码和用户名为空")})
     public String userLogin(@RequestParam("username") String username, @RequestParam("password") String password, HttpServletRequest request){
 
         user user = userLoginService.userLogin(username,password);
